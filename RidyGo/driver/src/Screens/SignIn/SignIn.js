@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState , useContext} from "react";
 import {
   View,
   Text,
@@ -8,53 +8,31 @@ import {
   Pressable,
   Alert,
 } from "react-native";
-import { AuthContext } from "../../../context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import { AuthContext } from "../../../AuthContext";
 
 const SignIn = ({ navigation }) => {
-  const { test } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const navigation = useNavigation();
 
   const handleSignIn = async () => {
-    if (!email || !password) {
-      Alert.alert("Validation Error", "Please enter both email and password.");
-      return;
-    }
-    console.warn("Email:", email);
-    try {
-      const response = await axios.post(
-        "https://ridygo.cyclic.app/user/signin",
-        {
-          email,
-          password,
-        }
-      );
-      console.warn("Response:", response.data);
-      AsyncStorage.setItem("token", response.data.token);
-      // AsyncStorage.setItem("user", response.data.user.name);
-      AsyncStorage.setItem("email", response.data.user.email);
-      if (!response.data.token) {
-        Alert.alert("Error", "Invalid email or password");
-      }
-      Alert.alert("Success", "You have successfully signed in.");
-      navigation.navigate("Home");
-    } catch (error) {
-      console.warn("Error:", error);
-    }
+   
+    login(email,password);
   };
 
   const handleSignUp = () => {
-    // navigation.push("SignUp");
+    navigation.push("SignUp");
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
-
+      {/* <Text>{test}</Text> */}
       <TextInput
         style={styles.input}
         placeholder="Email"
