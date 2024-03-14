@@ -1,13 +1,21 @@
-import { StyleSheet, Text, View, Dimensions, Pressable } from "react-native";
-import React, { useState, useEffect, useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation from @react-navigation/native
 import PlaceRow from "../DestinationSearch/PlaceRow";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useDispatch } from "react-redux";
 import { setDestination, setOrigin } from "../../../slices/navSlice";
-// AuthContext
+
 import styles from "./styles";
-import { AuthContext } from "../../../context";
+import RecentRideOrders from "../../Components/RecentRideOrders/RecentRideOrders";
 // import { useEffect } from "react/cjs/react.production.min";
 
 const homePlace = {
@@ -21,21 +29,26 @@ const workPlace = {
 };
 
 const Home = () => {
-  const logout = useContext(AuthContext);
   const navigation = useNavigation(); // Use useNavigation hook
   const dispatch = useDispatch();
   const [originPlace, setOriginPlace] = useState("");
-
+  // const [image, setImage] = useState("");
   // useEffect(() => {
   //   if (originPlace) {
   //     navigation.navigate("DestinationSearch", { originPlace });
   //   }
   // }, [originPlace]);
+  const HandleProfilePress = () => {
+    // console.warn("Navigating to Profile");
+    navigation.push("Profile");
+  };
   return (
     <View style={styles.container}>
-      <View>
+      <Pressable onPress={
+        HandleProfilePress
+      }>
         <Text style={styles.logo}>Ridy Go</Text>
-      </View>
+      </Pressable>
 
       <View
         style={{
@@ -43,7 +56,7 @@ const Home = () => {
         }}
       >
         <GooglePlacesAutocomplete
-          placeholder="Where to?"
+          placeholder="From"
           onPress={(data, details = null) => {
             dispatch(
               setOrigin({
@@ -98,6 +111,7 @@ const Home = () => {
           Get Ridy
         </Text>
       </Pressable>
+      <RecentRideOrders />
     </View>
   );
 };
