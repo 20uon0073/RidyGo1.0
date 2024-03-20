@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (email, password) => {
     axios
-      .post("https://ridygo.cyclic.app/user/login", {
+      .post("https://ridygo.cyclic.app/rider/login", {
         email,
         password,
       })

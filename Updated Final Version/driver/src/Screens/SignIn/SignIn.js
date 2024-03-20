@@ -1,4 +1,4 @@
-import React, { useState , useContext} from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -21,8 +21,8 @@ const SignIn = ({ navigation }) => {
   // const navigation = useNavigation();
 
   const handleSignIn = async () => {
-   
-    login(email,password);
+    console.warn(email, password);
+    login(email, password);
   };
 
   const handleSignUp = () => {

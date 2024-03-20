@@ -21,7 +21,7 @@ const PlaceNameFromCoordinates = ({ latitude, longitude }) => {
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyDeJpCLAWlRgFul8TvXGiLP8lp1p5Mf0HQ`
         );
         if (response.data.results.length > 0) {
-            // console.warn("Response:", response.data.results[0].formatted_address);
+          // console.warn("Response:", response.data.results[0].formatted_address);
           setPlaceName(response.data.results[0].formatted_address);
           setLoading(false);
         }
@@ -74,56 +74,60 @@ const RecentRideOrders = () => {
         >
           Recent Orders
         </Text>
-        {recentOrders.map((order, index) => (
-          <View
-            key={index}
-            style={{
-              flex: 1,
-              paddingHorizontal: 5,
-              paddingVertical: 20,
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <View>
-              <Text
-                style={{
-                  color: "black",
-                  fontSize: 16,
-                  fontWeight: "semibold",
-                  paddingBottom: 10,
-                }}
-              >
-                <PlaceNameFromCoordinates
-                  latitude={order.PickupLatitude}
-                  longitude={order.PickupLongitude}
-                />
-              </Text>
-              <Text
-                style={{
-                  color: "black",
-                  fontSize: 16,
-                  fontWeight: "semibold",
-                  // paddingVertical: 10,
-                }}
-              >
-                 <PlaceNameFromCoordinates
-                  latitude={order.DestinationLatitude}
-                  longitude={order.DestinationLongitude}
-                />
-              </Text>
-            </View>
-            <Text
+        {recentOrders ? (
+          recentOrders.map((order, index) => (
+            <View
+              key={index}
               style={{
-                color: "orange",
-                fontSize: 16,
-                fontWeight: "bold",
+                flex: 1,
+                paddingHorizontal: 5,
+                paddingVertical: 20,
+                justifyContent: "space-between",
+                flexDirection: "row",
               }}
             >
-              {order.status}
-            </Text>
-          </View>
-        ))}
+              <View>
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 16,
+                    fontWeight: "semibold",
+                    paddingBottom: 10,
+                  }}
+                >
+                  <PlaceNameFromCoordinates
+                    latitude={order.PickupLatitude}
+                    longitude={order.PickupLongitude}
+                  />
+                </Text>
+                <Text
+                  style={{
+                    color: "black",
+                    fontSize: 16,
+                    fontWeight: "semibold",
+                    // paddingVertical: 10,
+                  }}
+                >
+                  <PlaceNameFromCoordinates
+                    latitude={order.DestinationLatitude}
+                    longitude={order.DestinationLongitude}
+                  />
+                </Text>
+              </View>
+              <Text
+                style={{
+                  color: "orange",
+                  fontSize: 16,
+                  fontWeight: "bold",
+                }}
+              >
+                {order.status}
+              </Text>
+            </View>
+          ))
+        ) : (
+          <ActivityIndicator size="large" color="#0000ff" />
+        )}
       </SafeAreaView>
     </ScrollView>
   );

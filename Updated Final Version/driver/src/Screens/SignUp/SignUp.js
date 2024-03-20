@@ -25,7 +25,7 @@ const SignUp = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('https://long-teal-lobster-kilt.cyclic.app/rider', {
+      const response = await axios.post('https://ridygo.cyclic.app/rider', {
         name,
         email,
         password,
